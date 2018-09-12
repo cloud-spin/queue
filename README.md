@@ -65,11 +65,17 @@ These tests can be found at [queue_test.go](queue_test.go).
 ### How To Run Tests
 Run below commands from the package root directory.
 
-Run tests with code coverage
+Run tests with code coverage:
+```
 go test -coverprofile=coverage.txt -covermode=atomic
+```
 
-Get code coverage report
+Get code coverage report:
+```
 go tool cover -html=coverage.txt
+```
 
-Run bench tests
+Run bench tests:
+```
 go test -bench=. -benchmem
+```
