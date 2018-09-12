@@ -1,7 +1,7 @@
 # Queue [![Build Status](https://travis-ci.com/cloud-spin/queue.svg?branch=master)](https://travis-ci.com/cloud-spin/queue) [![codecov](https://codecov.io/gh/cloud-spin/queue/branch/master/graph/badge.svg)](https://codecov.io/gh/cloud-spin/queue) [![Go Report Card](https://goreportcard.com/badge/github.com/cloud-spin/queue)](https://goreportcard.com/report/github.com/cloud-spin/queue)  [![GoDoc](https://godoc.org/github.com/cloud-spin/queue?status.svg)](https://godoc.org/github.com/cloud-spin/queue)
 
 Package queue implements a high performance, thread-safe and dynamically growing queue that uses linked arrays as its internal data structure.
-Package queue is about 30% faster than the standard [list package](https://github.com/golang/go/tree/master/src/container/list).
+Package queue is about 30% faster than the standard [list package](https://github.com/golang/go/tree/master/src/container/list) and uses 50% less memory.
 
 #### How to Use
 
@@ -62,8 +62,8 @@ BenchmarkStandardListPackage-4   	20000000	       139 ns/op	      56 B/op	      
 
 These tests can be found at [queue_test.go](queue_test.go).
 
-# queue
-
+### How To Run Tests
+From the package root directory, run below commands.
 
 # Run tests with code coverage
 go test -coverprofile=coverage.txt -covermode=atomic

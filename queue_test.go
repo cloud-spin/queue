@@ -37,6 +37,7 @@ func TestNewQueuShouldReturnInitiazedInstanceOfQueue(t *testing.T) {
 
 func TestPutNilValueShouldReturnError(t *testing.T) {
 	q := NewQueue()
+
 	if err := q.Put(nil); err == nil {
 		t.Error("Expected: error; Got: success")
 	}
@@ -87,7 +88,6 @@ func TestPutGetAndPeekShouldRetrieveAllElementsInOrder(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			t.Logf("running tests %s", name)
 			q := NewQueue()
 			lastPut := 0
 			lastGet := 0
@@ -206,9 +206,8 @@ func TestPutAndGetConcurrently(t *testing.T) {
 	}
 }
 
-func BenchmarkPutAndGet(b *testing.B) {
+func BenchmarkQueuePackage(b *testing.B) {
 	q := NewQueue()
-
 	for n := 0; n < b.N; n++ {
 		q.Put(n)
 	}
@@ -227,7 +226,6 @@ func BenchmarkPutAndGet(b *testing.B) {
 
 func BenchmarkStandardListPackage(b *testing.B) {
 	l := list.New()
-
 	for n := 0; n < b.N; n++ {
 		l.PushBack(n)
 	}
