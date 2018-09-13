@@ -30,12 +30,11 @@ const (
 	DefaultInternalArraySize = 100
 )
 
-// Queue imeplements a dybamic FIFO queue. The retrieved elements are retrieved in the same order they were added.
-// Queue can be safety used from concurrent Go routines.
+// Queue represents a thread-safe, dynamically growing FIFO queue.
 type Queue interface {
-	Peek() interface{}
 	Get() interface{}
 	Put(v interface{}) error
+	Peek() interface{}
 	IsEmpty() bool
 }
 
@@ -54,7 +53,6 @@ type Node struct {
 }
 
 // NewQueue initializes a new instance of Queue.
-// Lock controls thread-safety. If lock is true, the queue implementation will be thread-safe; false otherwise.
 func NewQueue() Queue {
 	q := &QueueImpl{
 		mutex: &sync.Mutex{},
@@ -132,7 +130,6 @@ func (q *QueueImpl) IsEmpty() bool {
 	return res
 }
 
-// IsEmpty returns true if the queue is empty; false otherwise.
 func (q *QueueImpl) isEmpty() bool {
 	return q.head == nil || q.head.i >= byte(len(q.head.v))
 }
