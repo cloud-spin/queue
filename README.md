@@ -94,14 +94,6 @@ go test -bench=. -benchmem
 ```
 
 
-## Releases
-We're commited to release only stable, production ready versions with all proper tests in place.
-
-We strive as much as possible to keep backwards compatibility with previous versions, so breaking changes are a "no-go".
-
-For a list of changes in each released version, see [CHANGELOG.md](CHANGELOG.md).
-
-
 ## Coding Principles and Commitment
 
 We're 100% commited to below software development principles:
@@ -120,6 +112,18 @@ We also strive in a very big way to write as much as possible bug free code. As 
 Having said that, testing is a very big job that requires a lot of time and effort. So we really appreciate the community to help us test and identify bugs. Our commitment is to fix all identified bugs ASAP.
 
 Also as our commitment to the open source community, we love to see the community engaging by leaving comments, posts, suggesting changes, improvements, helping us to test, run performance benchmarks, or just using the packages and spreading the word. Let us and others as well know what's your experience using CloudSpin!
+
+
+## Releases
+We're commited to a CI/CD lifecycle releasing frequent, but only stable, production ready versions with all proper tests in place.
+
+We strive as much as possible to keep backwards compatibility with previous versions, so breaking changes are a "no-go".
+
+For a list of changes in each released version, see [CHANGELOG.md](CHANGELOG.md).
+
+
+## Supported Go Versions
+See [supported_go_versions.md](https://github.com/cloud-spin/docs/blob/master/supported_go_versions.md).
 
 
 ## License
