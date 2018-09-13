@@ -100,7 +100,6 @@ MIT, see [LICENSE](LICENSE).
 "Use, abuse, have fun and contribute back!"
 
 
-
 ## Contributions
 See [Contributions.md](https://github.com/cloud-spin/docs/blob/master/contributing.md).
 
