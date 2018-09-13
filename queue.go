@@ -54,7 +54,10 @@ type Node struct {
 
 // NewQueue initializes a new instance of Queue.
 func NewQueue() Queue {
+	head := NewNode()
 	q := &QueueImpl{
+		head:  head,
+		tail:  head,
 		mutex: &sync.Mutex{},
 	}
 	return q
@@ -62,6 +65,7 @@ func NewQueue() Queue {
 
 // NewNode initializes a new instance of Node.
 func NewNode() *Node {
+
 	return &Node{
 		v: make([]interface{}, 0, DefaultInternalArraySize),
 	}
@@ -74,18 +78,13 @@ func (q *QueueImpl) Put(v interface{}) error {
 		return errors.New("Cannot add nil value")
 	}
 
-	q.checkLock()
-	if q.tail == nil {
-		q.tail = NewNode()
-		q.head = q.tail
-	}
+	q.mutex.Lock()
 	if len(q.tail.v) >= DefaultInternalArraySize {
 		q.tail.n = NewNode()
 		q.tail = q.tail.n
 	}
-
 	q.tail.v = append(q.tail.v, v)
-	q.checkUnlock()
+	q.mutex.Unlock()
 
 	return nil
 }
@@ -93,9 +92,9 @@ func (q *QueueImpl) Put(v interface{}) error {
 // Get retrieves and removes the next element from the queue.
 // If the queue is empty, nil will be returned.
 func (q *QueueImpl) Get() interface{} {
-	q.checkLock()
+	q.mutex.Lock()
 	if q.isEmpty() {
-		q.checkUnlock()
+		q.mutex.Unlock()
 		return nil
 	}
 
@@ -105,40 +104,32 @@ func (q *QueueImpl) Get() interface{} {
 		q.head = q.head.n
 		q.pos = 0
 	}
-	q.checkUnlock()
+	q.mutex.Unlock()
 
 	return v
 }
 
 // Peek retrieves the next element from the queue, but does not remove it from the queue.
 func (q *QueueImpl) Peek() interface{} {
-	q.checkLock()
+	q.mutex.Lock()
 	if q.isEmpty() {
-		q.checkUnlock()
+		q.mutex.Unlock()
 		return nil
 	}
 
 	v := q.head.v[q.pos]
-	q.checkUnlock()
+	q.mutex.Unlock()
 	return v
 }
 
 // IsEmpty returns true if the queue is empty; false otherwise.
 func (q *QueueImpl) IsEmpty() bool {
-	q.checkLock()
+	q.mutex.Lock()
 	res := q.isEmpty()
-	q.checkUnlock()
+	q.mutex.Unlock()
 	return res
 }
 
 func (q *QueueImpl) isEmpty() bool {
 	return q.head == nil || q.pos >= len(q.head.v)
-}
-
-func (q *QueueImpl) checkLock() {
-	q.mutex.Lock()
-}
-
-func (q *QueueImpl) checkUnlock() {
-	q.mutex.Unlock()
 }

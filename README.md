@@ -1,7 +1,7 @@
 # Queue [![Build Status](https://travis-ci.com/cloud-spin/queue.svg?branch=master)](https://travis-ci.com/cloud-spin/queue) [![codecov](https://codecov.io/gh/cloud-spin/queue/branch/master/graph/badge.svg)](https://codecov.io/gh/cloud-spin/queue) [![Go Report Card](https://goreportcard.com/badge/github.com/cloud-spin/queue)](https://goreportcard.com/report/github.com/cloud-spin/queue)  [![GoDoc](https://godoc.org/github.com/cloud-spin/queue?status.svg)](https://godoc.org/github.com/cloud-spin/queue)
 
 Package queue implements a high performance, thread-safe and dynamically growing queue that uses linked arrays as its internal data structure.
-Package queue is about 30% faster than the standard [list package](https://github.com/golang/go/tree/master/src/container/list) and uses 50% less memory, besides being thread-safe.*
+Package queue is about 40% faster than the standard [list package](https://github.com/golang/go/tree/master/src/container/list) and uses 50% less memory, besides being thread-safe.*
 
 
 ## Install
@@ -67,10 +67,10 @@ go test -bench=. -benchmem
 goos: darwin
 goarch: amd64
 pkg: github.com/cloud-spin/queue
-BenchmarkQueuePackage-4          	20000000	        96.3 ns/op	      26 B/op	       1 allocs/op
-BenchmarkStandardListPackage-4   	10000000	       142 ns/op	      56 B/op	       2 allocs/op
+BenchmarkQueuePackage-4          	20000000	        87.2 ns/op	      26 B/op	       1 allocs/op
+BenchmarkStandardListPackage-4   	20000000	       148 ns/op	      56 B/op	       2 allocs/op
 PASS
-ok  	github.com/cloud-spin/queue	3.666s
+ok  	github.com/cloud-spin/queue	5.038s
 ```
 
 These tests can be found at [queue_test.go](queue_test.go).
