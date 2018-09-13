@@ -40,10 +40,10 @@ type Queue interface {
 
 // QueueImpl implements a Queue.
 type QueueImpl struct {
-	head   *Node
-	tail   *Node
-	curPos int
-	mutex  *sync.Mutex
+	head  *Node
+	tail  *Node
+	pos   int
+	mutex *sync.Mutex
 }
 
 // Node represents a Queue node.
@@ -99,11 +99,11 @@ func (q *QueueImpl) Get() interface{} {
 		return nil
 	}
 
-	v := q.head.v[q.curPos]
-	q.curPos++
-	if q.curPos >= DefaultInternalArraySize {
+	v := q.head.v[q.pos]
+	q.pos++
+	if q.pos >= DefaultInternalArraySize {
 		q.head = q.head.n
-		q.curPos = 0
+		q.pos = 0
 	}
 	q.checkUnlock()
 
@@ -118,7 +118,7 @@ func (q *QueueImpl) Peek() interface{} {
 		return nil
 	}
 
-	v := q.head.v[q.curPos]
+	v := q.head.v[q.pos]
 	q.checkUnlock()
 	return v
 }
@@ -132,7 +132,7 @@ func (q *QueueImpl) IsEmpty() bool {
 }
 
 func (q *QueueImpl) isEmpty() bool {
-	return q.head == nil || q.curPos >= len(q.head.v)
+	return q.head == nil || q.pos >= len(q.head.v)
 }
 
 func (q *QueueImpl) checkLock() {
