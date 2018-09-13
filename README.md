@@ -115,7 +115,7 @@ Also as our commitment to the open source community, we love to see the communit
 
 
 ## Releases
-We're commited to a CI/CD lifecycle releasing frequent, but only stable, production ready versions with all proper tests in place.
+We're committed to a CI/CD lifecycle releasing frequent, but only stable, production ready versions with all proper tests in place.
 
 We strive as much as possible to keep backwards compatibility with previous versions, so breaking changes are a "no-go".
 
