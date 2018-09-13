@@ -101,8 +101,9 @@ MIT, see [LICENSE](LICENSE).
 
 
 ## Contributions
-See [Contributions.md](https://github.com/cloud-spin/docs/blob/master/contributing.md).
+See [contributing.md](https://github.com/cloud-spin/docs/blob/master/contributing.md).
 
 
+##
 
 *According to the benchmark tests in this package.
