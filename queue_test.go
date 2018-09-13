@@ -21,7 +21,6 @@
 package queue
 
 import (
-	"container/list"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -203,41 +202,5 @@ func TestPutAndGetConcurrently(t *testing.T) {
 		if v != routines {
 			t.Errorf("Expected: %d as there were %d routines adding the same numbers to the queue; Got: %d", routines, routines, v)
 		}
-	}
-}
-
-func BenchmarkQueuePackage(b *testing.B) {
-	q := NewQueue()
-	for n := 0; n < b.N; n++ {
-		q.Put(n)
-	}
-
-	lastGet := 0
-	for !q.IsEmpty() {
-		v := q.Get()
-		if v == nil {
-			b.Errorf("Expected: %d; Got: nil", lastGet)
-		} else if v.(int) != lastGet {
-			b.Errorf("Expected: %d; Got: %d", lastGet, v.(int))
-		}
-		lastGet++
-	}
-}
-
-func BenchmarkStandardListPackage(b *testing.B) {
-	l := list.New()
-	for n := 0; n < b.N; n++ {
-		l.PushBack(n)
-	}
-
-	lastGet := 0
-	for e := l.Front(); e != nil; e = e.Next() {
-		v := e.Value
-		if v == nil {
-			b.Errorf("Expected: %d; Got: nil", v)
-		} else if v.(int) != lastGet {
-			b.Errorf("Expected: %d; Got: %d", lastGet, v.(int))
-		}
-		lastGet++
 	}
 }

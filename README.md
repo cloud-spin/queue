@@ -67,10 +67,10 @@ go test -bench=. -benchmem
 goos: darwin
 goarch: amd64
 pkg: github.com/cloud-spin/queue
-BenchmarkQueuePackage-4          	20000000	        95.9 ns/op	      26 B/op	       1 allocs/op
-BenchmarkStandardListPackage-4   	10000000	       135 ns/op	      56 B/op	       2 allocs/op
+BenchmarkQueuePackage-4          	20000000	        96.3 ns/op	      26 B/op	       1 allocs/op
+BenchmarkStandardListPackage-4   	10000000	       142 ns/op	      56 B/op	       2 allocs/op
 PASS
-ok  	github.com/cloud-spin/queue	3.607s
+ok  	github.com/cloud-spin/queue	3.666s
 ```
 
 These tests can be found at [queue_test.go](queue_test.go).
@@ -138,4 +138,4 @@ See [contributing.md](https://github.com/cloud-spin/docs/blob/master/contributin
 
 ###
 
-*According to the benchmark tests in this package.
+*According to the [benchmark tests](benchmark_test.go).
