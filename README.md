@@ -45,7 +45,7 @@ Why?
 
 Locality is the answer! Traditional queue implementations uses linked list as its internal data structure.
 While linked lists are great for dynamically growing lists with little overhead, navigating and retrieving the elements
-is tipically slower than retrieving elements from arrays because linked lists require "jumps" (next element) to potentially far away memory addresses. Arrays, on the other hand, doesn't suffer from the same problem as the elements are stored in sequential memory addresses, making it faster to navigate and retrieve the subsequent elements. By using a linked list, linking fixed sized arrays together, package queue is able to take advantage of the memory locality arrays enjoy and is still able to dynamically grow with little overhead.
+is tipically slower than retrieving elements from arrays because linked lists require "jumps" (next element) to potentially far away memory addresses. Arrays, on the other hand, doesn't suffer from the same problem as the elements are stored in sequential memory addresses, making it faster to navigate and retrieve the subsequent elements. By using a linked list, linking fixed sized arrays together, package queue is able to take advantage of the memory cache locality of the arrays and is still able to dynamically grow with little overhead.
 
 As Go doesn't provide a standard queue implementation, the likely closest standand Go structure to a queue is the [list package](https://github.com/golang/go/tree/master/src/container/list). Below benchmark tests compare adding and retrieving elements with the list package.
 
