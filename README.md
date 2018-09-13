@@ -14,7 +14,7 @@ import (
 	"github.com/cloud-spin/queue"
 )
 
-func Example() {
+func main() {
 	q := queue.NewQueue()
 
 	for i := 1; i <= 5; i++ {
