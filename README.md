@@ -56,8 +56,10 @@ go test -bench=. -benchmem
 goos: darwin
 goarch: amd64
 pkg: github.com/cloud-spin/queue
-BenchmarkPutAndGet-4             	20000000	        94.6 ns/op	      26 B/op	       1 allocs/op
-BenchmarkStandardListPackage-4   	20000000	       139 ns/op	      56 B/op	       2 allocs/op
+BenchmarkQueuePackage-4          	20000000	        95.9 ns/op	      26 B/op	       1 allocs/op
+BenchmarkStandardListPackage-4   	10000000	       135 ns/op	      56 B/op	       2 allocs/op
+PASS
+ok  	github.com/cloud-spin/queue	3.607s
 ```
 
 These tests can be found at [queue_test.go](queue_test.go).
