@@ -3,8 +3,8 @@
 Package queue implements a high performance, thread-safe and dynamically growing queue that uses linked arrays as its internal data structure.
 Package queue is about 30% faster than the standard [list package](https://github.com/golang/go/tree/master/src/container/list) and uses 50% less memory, besides being thread-safe.*
 
-### Install
 
+## Install
 From a configured [Go environment](https://golang.org/doc/install#testing):
 ```sh
 go get -u github.com/cloud-spin/queue
@@ -16,8 +16,7 @@ dep ensure -add github.com/cloud-spin/queue
 ```
 
 
-### How to Use
-
+## How to Use
 ```go
 package main
 
@@ -51,7 +50,8 @@ Output:
 
 Also refer to the tests at [queue_test.go](queue_test.go).
 
-### Performance
+
+## Performance
 Package queue implements a FIFO queue storing the elements in linked arrays.
 
 Why?
@@ -75,7 +75,8 @@ ok  	github.com/cloud-spin/queue	3.607s
 
 These tests can be found at [queue_test.go](queue_test.go).
 
-### How To Run Tests
+
+## How To Run Tests
 Run below commands from the package root directory.
 
 Run tests with code coverage:
@@ -94,8 +95,7 @@ go test -bench=. -benchmem
 ```
 
 
-### Coding Principles and Commitment
-
+## Coding Principles and Commitment
 We're 100% commited to below software development principles:
 
 - Simplicity
@@ -114,7 +114,7 @@ Having said that, testing is a very big job that requires a lot of time and effo
 Also as our commitment to the open source community, we love to see the community engaging by leaving comments, posts, suggesting changes, improvements, helping us to test, run performance benchmarks, or just using the packages and spreading the word. Let us and others as well know what's your experience using CloudSpin!
 
 
-### Releases
+## Releases
 We're commited to a CI/CD lifecycle releasing frequent, but only stable, production ready versions with all proper tests in place.
 
 We strive as much as possible to keep backwards compatibility with previous versions, so breaking changes are a "no-go".
@@ -122,17 +122,17 @@ We strive as much as possible to keep backwards compatibility with previous vers
 For a list of changes in each released version, see [CHANGELOG.md](CHANGELOG.md).
 
 
-### Supported Go Versions
+## Supported Go Versions
 See [supported_go_versions.md](https://github.com/cloud-spin/docs/blob/master/supported_go_versions.md).
 
 
-### License
+## License
 MIT, see [LICENSE](LICENSE).
 
 "Use, abuse, have fun and contribute back!"
 
 
-### Contributions
+## Contributions
 See [contributing.md](https://github.com/cloud-spin/docs/blob/master/contributing.md).
 
 
