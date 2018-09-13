@@ -3,6 +3,19 @@
 Package queue implements a high performance, thread-safe and dynamically growing queue that uses linked arrays as its internal data structure.
 Package queue is about 30% faster than the standard [list package](https://github.com/golang/go/tree/master/src/container/list) and uses 50% less memory, besides being thread-safe.*
 
+#### Install
+
+From a configured [Go environment](https://golang.org/doc/install#testing):
+```sh
+go get -u github.com/cloud-spin/queue
+```
+
+If you are using dep:
+```sh
+dep ensure -add github.com/cloud-spin/queue
+```
+
+
 #### How to Use
 
 ```go
@@ -79,6 +92,34 @@ Run bench tests:
 ```
 go test -bench=. -benchmem
 ```
+
+
+## License
+MIT, see [LICENSE](LICENSE).
+
+"Use, abuse, have fun and contribute back!"
+
+
+
+## Contributions
+By reading, analysing and using many of the tons of super high quality and amazing open source projects, we feel we learned so much from the wonderful open source community that we strongly feel the need to contribute back!
+
+CloudSpin is our way to say "Thank you very much open source community for all the support for software development!".
+
+As a member of the open source community, please help grow the community by using, sharing and contributing back to any of the tons of open source projects out there. The community altogether is super excited to see new, engaged members, and so are we at CloudSpin!
+
+If you are interested in contributing to CloudSpin, for now help to spread the word and let others know about CloudSpin. Once CloudSpin is fully tested and verified to be working as expected, we'll start accepting contributions.
+
+We're 100% commited to below software development rules for CloudSpin:
+
+- Simplicity
+- Testable code
+- Tests, tests, tests!
+	- Strong test suite covering all major code routes/branches
+	- Strong focus to achieve 100% code coverage everywhere
+
+On top of that, clean code is a must. No weird, obscure logic anywhere. We avoid using comments to describe code logic as we strive to make the code so clean that any inline comments would just pollute the code (no need to explain what is very clear already!).
+
 
 
 *According to the benchmark tests in this package.
