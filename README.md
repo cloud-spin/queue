@@ -73,7 +73,7 @@ PASS
 ok  	github.com/cloud-spin/queue	5.038s
 ```
 
-These tests can be found at [queue_test.go](queue_test.go).
+These tests can be found at [benchmark tests](benchmark_test.go).
 
 
 ## How To Run Tests
@@ -98,7 +98,7 @@ go test -bench=. -benchmem
 ## Releases
 We're committed to a CI/CD lifecycle releasing frequent, but only stable, production ready versions with all proper tests in place.
 
-We strive as much as possible to keep backwards compatibility with previous versions, so breaking changes are a "no-go".
+We strive as much as possible to keep backwards compatibility with previous versions, so breaking changes are a no-go.
 
 For a list of changes in each released version, see [CHANGELOG.md](CHANGELOG.md).
 
