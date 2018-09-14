@@ -95,25 +95,6 @@ go test -bench=. -benchmem
 ```
 
 
-## Coding Principles and Commitment
-We're 100% commited to below software development principles:
-
-- Simplicity
-- Testable code
-- Performance
-- Tests, tests, tests!
-	- Strong test suite covering all major code routes/branches
-	- Strong focus to achieve 100% code coverage everywhere
-
-On top of that, clean code is a must. No weird, obscure logic anywhere. As part of that principle, we avoid using comments to describe code logic as we strive to make the code so clean that any inline comments would just pollute the code (no need to explain what is very clear already!). The rule we follow is this: if we feel the need to add a comment to explain something, think again. That likely means the logic is too complex. Rethink and simplify it!
-
-We also strive in a very big way to write as much as possible bug free code. As part of that commitment, we spend a great deal of time making sure the code is fully testable, but also to identify all test cases and write proper tests for all those test cases. Our goal is to reach 100% code coverage for all libraries.
-
-Having said that, testing is a very big job that requires a lot of time and effort. So we really appreciate the community to help us test and identify bugs. Our commitment is to fix all identified bugs ASAP.
-
-Also as our commitment to the open source community, we love to see the community engaging by leaving comments, posts, suggesting changes, improvements, helping us to test, run performance benchmarks, or just using the packages and spreading the word. Let us and others as well know what's your experience using CloudSpin!
-
-
 ## Releases
 We're committed to a CI/CD lifecycle releasing frequent, but only stable, production ready versions with all proper tests in place.
 
