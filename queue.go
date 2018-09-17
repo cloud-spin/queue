@@ -27,7 +27,7 @@ import (
 
 const (
 	// DefaultInternalArraySize holds the size of each internal array.
-	DefaultInternalArraySize = 100
+	DefaultInternalArraySize = 64
 )
 
 // Queue represents a thread-safe, dynamically growing FIFO queue.
@@ -65,7 +65,6 @@ func NewQueue() Queue {
 
 // NewNode initializes a new instance of Node.
 func NewNode() *Node {
-
 	return &Node{
 		v: make([]interface{}, 0, DefaultInternalArraySize),
 	}
@@ -79,12 +78,13 @@ func (q *QueueImpl) Put(v interface{}) error {
 	}
 
 	q.mutex.Lock()
+	defer q.mutex.Unlock()
+	
 	if len(q.tail.v) >= DefaultInternalArraySize {
 		q.tail.n = NewNode()
 		q.tail = q.tail.n
 	}
 	q.tail.v = append(q.tail.v, v)
-	q.mutex.Unlock()
 
 	return nil
 }
@@ -93,8 +93,9 @@ func (q *QueueImpl) Put(v interface{}) error {
 // If the queue is empty, nil will be returned.
 func (q *QueueImpl) Get() interface{} {
 	q.mutex.Lock()
+	defer q.mutex.Unlock()
+
 	if q.isEmpty() {
-		q.mutex.Unlock()
 		return nil
 	}
 
@@ -104,7 +105,6 @@ func (q *QueueImpl) Get() interface{} {
 		q.head = q.head.n
 		q.pos = 0
 	}
-	q.mutex.Unlock()
 
 	return v
 }
@@ -112,21 +112,22 @@ func (q *QueueImpl) Get() interface{} {
 // Peek retrieves the next element from the queue, but does not remove it from the queue.
 func (q *QueueImpl) Peek() interface{} {
 	q.mutex.Lock()
+	defer q.mutex.Unlock()
+
 	if q.isEmpty() {
-		q.mutex.Unlock()
 		return nil
 	}
 
 	v := q.head.v[q.pos]
-	q.mutex.Unlock()
 	return v
 }
 
 // IsEmpty returns true if the queue is empty; false otherwise.
 func (q *QueueImpl) IsEmpty() bool {
 	q.mutex.Lock()
+	defer q.mutex.Unlock()
+
 	res := q.isEmpty()
-	q.mutex.Unlock()
 	return res
 }
 
