@@ -76,24 +76,6 @@ ok  	github.com/cloud-spin/queue	5.038s
 These tests can be found at [benchmark tests](benchmark_test.go).
 
 
-## How To Run Tests
-Run below commands from the package root directory.
-
-Run tests with code coverage:
-```
-go test -coverprofile=coverage.txt -covermode=atomic
-```
-
-Get code coverage report:
-```
-go tool cover -html=coverage.txt
-```
-
-Run bench tests:
-```
-go test -bench=. -benchmem
-```
-
 
 ## Releases
 We're committed to a CI/CD lifecycle releasing frequent, but only stable, production ready versions with all proper tests in place.
