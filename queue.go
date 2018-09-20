@@ -27,7 +27,7 @@ import (
 
 const (
 	// DefaultInternalArraySize holds the size of each internal array.
-	DefaultInternalArraySize = 64
+	DefaultInternalArraySize = 128
 )
 
 // Queue represents a thread-safe, dynamically growing FIFO queue.
@@ -100,6 +100,7 @@ func (q *QueueImpl) Get() interface{} {
 	}
 
 	v := q.head.v[q.pos]
+	q.head.v[q.pos] = nil
 	q.pos++
 	if q.pos >= DefaultInternalArraySize {
 		q.head = q.head.n
