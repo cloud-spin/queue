@@ -81,8 +81,9 @@ func (q *QueueImpl) Put(v interface{}) error {
 	defer q.mutex.Unlock()
 	
 	if len(q.tail.v) >= DefaultInternalArraySize {
-		q.tail.n = NewNode()
-		q.tail = q.tail.n
+		n := NewNode()
+		q.tail.n = n
+		q.tail = n
 	}
 	q.tail.v = append(q.tail.v, v)
 
@@ -100,10 +101,13 @@ func (q *QueueImpl) Get() interface{} {
 	}
 
 	v := q.head.v[q.pos]
-	q.head.v[q.pos] = nil
+	q.head.v[q.pos] = nil // Avoid memory leaks
 	q.pos++
 	if q.pos >= DefaultInternalArraySize {
-		q.head = q.head.n
+		n := q.head.n
+		q.head.v = nil // Avoid memory leaks
+		q.head.n = nil // Avoid memory leaks
+		q.head = n
 		q.pos = 0
 	}
 
