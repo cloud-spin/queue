@@ -21,7 +21,6 @@
 package queue
 
 import (
-	"errors"
 	"sync"
 )
 
@@ -32,9 +31,9 @@ const (
 
 // Queue represents a thread-safe, dynamically growing FIFO queue.
 type Queue interface {
-	Get() interface{}
-	Put(v interface{}) error
-	Peek() interface{}
+	Get() (interface{}, bool)
+	Put(v interface{})
+	Peek() (interface{}, bool)
 	IsEmpty() bool
 }
 
@@ -52,9 +51,9 @@ type Node struct {
 	n *Node
 }
 
-// NewQueue initializes a new instance of Queue.
-func NewQueue() Queue {
-	head := NewNode()
+// New initializes a new instance of Queue.
+func New() Queue {
+	head := newNode()
 	q := &QueueImpl{
 		head:  head,
 		tail:  head,
@@ -63,41 +62,28 @@ func NewQueue() Queue {
 	return q
 }
 
-// NewNode initializes a new instance of Node.
-func NewNode() *Node {
-	return &Node{
-		v: make([]interface{}, 0, DefaultInternalArraySize),
-	}
-}
-
 // Put adds a value to the queue.
 // Put doesn't accept nil values.
-func (q *QueueImpl) Put(v interface{}) error {
-	if v == nil {
-		return errors.New("Cannot add nil value")
-	}
-
+func (q *QueueImpl) Put(v interface{}) {
 	q.mutex.Lock()
 	defer q.mutex.Unlock()
-	
+
 	if len(q.tail.v) >= DefaultInternalArraySize {
-		n := NewNode()
+		n := newNode()
 		q.tail.n = n
 		q.tail = n
 	}
 	q.tail.v = append(q.tail.v, v)
-
-	return nil
 }
 
 // Get retrieves and removes the next element from the queue.
 // If the queue is empty, nil will be returned.
-func (q *QueueImpl) Get() interface{} {
+func (q *QueueImpl) Get() (interface{}, bool) {
 	q.mutex.Lock()
 	defer q.mutex.Unlock()
 
 	if q.isEmpty() {
-		return nil
+		return nil, false
 	}
 
 	v := q.head.v[q.pos]
@@ -105,26 +91,25 @@ func (q *QueueImpl) Get() interface{} {
 	q.pos++
 	if q.pos >= DefaultInternalArraySize {
 		n := q.head.n
-		q.head.v = nil // Avoid memory leaks
 		q.head.n = nil // Avoid memory leaks
 		q.head = n
 		q.pos = 0
 	}
 
-	return v
+	return v, true
 }
 
 // Peek retrieves the next element from the queue, but does not remove it from the queue.
-func (q *QueueImpl) Peek() interface{} {
+func (q *QueueImpl) Peek() (interface{}, bool) {
 	q.mutex.Lock()
 	defer q.mutex.Unlock()
 
 	if q.isEmpty() {
-		return nil
+		return nil, false
 	}
 
 	v := q.head.v[q.pos]
-	return v
+	return v, true
 }
 
 // IsEmpty returns true if the queue is empty; false otherwise.
@@ -138,4 +123,11 @@ func (q *QueueImpl) IsEmpty() bool {
 
 func (q *QueueImpl) isEmpty() bool {
 	return q.head == nil || q.pos >= len(q.head.v)
+}
+
+// NewNode initializes a new instance of Node.
+func newNode() *Node {
+	return &Node{
+		v: make([]interface{}, 0, DefaultInternalArraySize),
+	}
 }

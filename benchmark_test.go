@@ -21,42 +21,30 @@
 package queue
 
 import (
-	"container/list"
 	"testing"
 )
 
+const (
+	// testCount hold the number of items to add to the queue.
+	testCount = 100
+)
+
 func BenchmarkQueuePackage(b *testing.B) {
-	q := NewQueue()
 	for n := 0; n < b.N; n++ {
-		q.Put(n)
-	}
+		q := New()
+		lastGet := 0
 
-	lastGet := 0
-	for !q.IsEmpty() {
-		v := q.Get()
-		if v == nil {
-			b.Errorf("Expected: %d; Got: nil", lastGet)
-		} else if v.(int) != lastGet {
-			b.Errorf("Expected: %d; Got: %d", lastGet, v.(int))
+		for i := 0; i < testCount; i++ {
+			q.Put(i)
 		}
-		lastGet++
-	}
-}
-
-func BenchmarkStandardListPackage(b *testing.B) {
-	l := list.New()
-	for n := 0; n < b.N; n++ {
-		l.PushBack(n)
-	}
-
-	lastGet := 0
-	for e := l.Front(); e != nil; e = e.Next() {
-		v := e.Value
-		if v == nil {
-			b.Errorf("Expected: %d; Got: nil", v)
-		} else if v.(int) != lastGet {
-			b.Errorf("Expected: %d; Got: %d", lastGet, v.(int))
+		for !q.IsEmpty() {
+			v, ok := q.Get()
+			if !ok || v == nil {
+				b.Errorf("Expected: %d; Got: nil", lastGet)
+			} else if v.(int) != lastGet {
+				b.Errorf("Expected: %d; Got: %d", lastGet, v.(int))
+			}
+			lastGet++
 		}
-		lastGet++
 	}
 }

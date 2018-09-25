@@ -27,18 +27,10 @@ import (
 )
 
 func TestNewQueuShouldReturnInitiazedInstanceOfQueue(t *testing.T) {
-	q := NewQueue()
+	q := New()
 
 	if q == nil {
 		t.Error("Expected: new instance of queue; Got: nil")
-	}
-}
-
-func TestPutNilValueShouldReturnError(t *testing.T) {
-	q := NewQueue()
-
-	if err := q.Put(nil); err == nil {
-		t.Error("Expected: error; Got: success")
 	}
 }
 
@@ -54,8 +46,8 @@ func TestPutGetAndPeekShouldRetrieveAllElementsInOrder(t *testing.T) {
 			remainingCount: 0,
 		},
 		"Test 100 items": {
-			putCount:       []int{2},
-			getCount:       []int{2},
+			putCount:       []int{100},
+			getCount:       []int{100},
 			remainingCount: 0,
 		},
 		"Test 1000 items": {
@@ -87,27 +79,25 @@ func TestPutGetAndPeekShouldRetrieveAllElementsInOrder(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			q := NewQueue()
+			q := New()
 			lastPut := 0
 			lastGet := 0
 			for count := 0; count < len(test.getCount); count++ {
 				for i := 1; i <= test.putCount[count]; i++ {
 					lastPut++
-					if err := q.Put(lastPut); err != nil {
-						t.Errorf("Expected: no error; Got: %s", err.Error())
-					}
-					if v := q.Peek(); v != lastGet+1 {
+					q.Put(lastPut)
+					if v, ok := q.Peek(); !ok || v != lastGet+1 {
 						t.Errorf("Expected: %d; Got: %d", lastGet, v)
 					}
 				}
 				for i := 1; i <= test.getCount[count]; i++ {
 					lastGet++
-					v := q.Peek().(int)
-					if v != lastGet {
+					v, ok := q.Peek()
+					if !ok || v.(int) != lastGet {
 						t.Errorf("Expected: %d; Got: %d", lastGet, v)
 					}
-					v = q.Get().(int)
-					if v != lastGet {
+					v, ok = q.Get()
+					if !ok || v.(int) != lastGet {
 						t.Errorf("Expected: %d; Got: %d", lastGet, v)
 					}
 				}
@@ -126,21 +116,21 @@ func TestPutGetAndPeekShouldRetrieveAllElementsInOrder(t *testing.T) {
 			for i := 1; i <= test.remainingCount; i++ {
 				lastGet++
 
-				v := q.Peek().(int)
-				if v != lastGet {
+				v, ok := q.Peek()
+				if !ok || v.(int) != lastGet {
 					t.Errorf("Expected: %d; Got: %d", lastGet, v)
 				}
-				v = q.Get().(int)
-				if v != lastGet {
+				v, ok = q.Get()
+				if !ok || v.(int) != lastGet {
 					t.Errorf("Expected: %d; Got: %d", lastGet, v)
 				}
 			}
-			v := q.Peek()
-			if v != nil {
+			v, ok := q.Peek()
+			if ok || v != nil {
 				t.Errorf("Expected: nil as the queue should be empty; Got: %d", v)
 			}
-			v = q.Get()
-			if v != nil {
+			v, ok = q.Get()
+			if ok || v != nil {
 				t.Errorf("Expected: nil as the queue should be empty; Got: %d", v)
 			}
 
@@ -153,7 +143,7 @@ func TestPutGetAndPeekShouldRetrieveAllElementsInOrder(t *testing.T) {
 
 func TestPutAndGetConcurrently(t *testing.T) {
 	const routines = 5
-	q := NewQueue()
+	q := New()
 	values := map[int]int{}
 	wgPut := sync.WaitGroup{}
 	wgPut.Add(routines)
@@ -174,8 +164,8 @@ func TestPutAndGetConcurrently(t *testing.T) {
 	for i := 0; i < routines; i++ {
 		go func() {
 			for {
-				v := q.Get()
-				if v != nil {
+				v, ok := q.Get()
+				if ok && v != nil {
 					iv := v.(int)
 					mux.Lock()
 					if count, ok := values[iv]; ok {

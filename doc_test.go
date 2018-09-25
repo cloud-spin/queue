@@ -7,14 +7,15 @@ import (
 )
 
 func Example() {
-	q := queue.NewQueue()
+	q := queue.New()
 
 	for i := 0; i < 5; i++ {
 		q.Put(i)
 	}
 
 	for !q.IsEmpty() {
-		fmt.Print(q.Get())
+		v, _ := q.Get()
+		fmt.Print(v)
 	}
 
 	// Output: 01234
