@@ -7,3 +7,8 @@
 # 1.0.1
 
 * Updated internal array size to 128 for best performance.
+
+
+# 1.0.2
+
+* Implemented minor tweks for better performance.
