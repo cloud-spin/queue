@@ -11,4 +11,4 @@
 
 # 1.0.2
 
-* Implemented minor tweks for better performance.
+* Implemented minor tweaks for better performance.
