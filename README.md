@@ -24,14 +24,15 @@ import (
 )
 
 func main() {
-	q := queue.NewQueue()
+	q := queue.New()
 
 	for i := 1; i <= 5; i++ {
 		q.Put(i)
 	}
 
 	for !q.IsEmpty() {
-		fmt.Println(q.Get())
+		v, _ := q.Get()
+		fmt.Print(v)
 	}
 }
 ```
