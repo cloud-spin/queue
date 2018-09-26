@@ -57,7 +57,7 @@ Locality is the answer! Traditional queue implementations uses linked list as it
 While linked lists are great for dynamically growing lists with little overhead, navigating and retrieving the elements
 is tipically slower than retrieving elements from arrays because linked lists require "jumps" (next element) to potentially far away memory addresses. Arrays, on the other hand, doesn't suffer from the same problem as the elements are stored in sequential memory addresses, making it faster to navigate and retrieve the subsequent elements. By using a linked list, linking fixed sized arrays together, package queue is able to take advantage of the memory cache locality of the arrays and is still able to dynamically grow with little overhead.
 
-The below [benchmark test](benchmark_test.go) result adds 1000 items to the queue and then removes them afterwards.
+The below [benchmark test](benchmark_test.go) result adds 100 items to the queue and then removes them afterwards.
 
 ```
 go version
